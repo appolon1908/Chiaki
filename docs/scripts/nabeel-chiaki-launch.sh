@@ -12,7 +12,8 @@ case "${1:-status}" in
     if command -v dpkg-query >/dev/null 2>&1; then dpkg-query -W -f='package=${Package} version=${Version}\n' chiaki 2>/dev/null || true; fi
     echo "config_home=$CONFIG_HOME"
     echo "credential_files_committed=NO"
-    pgrep -a -f '(^|/)chiaki([ -]|$)' || true
+    # Process arguments may contain pairing material; status exposes PIDs only.
+    pgrep -f '(^|/)chiaki([ -]|$)' || true
     ;;
   launch)
     shift
